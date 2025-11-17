@@ -1,10 +1,11 @@
-import { Outlet } from "react-router";
-
+import "./Form.css";
+import { Outlet } from "react-router-dom";
 export default function Form() {
   return (
-    <div>
-      <h2>Form Component</h2>
-      <Outlet />
-    </div>
+    <form className="form">
+      <div className="form__container">
+        <Outlet />
+      </div>
+    </form>
   );
 }
