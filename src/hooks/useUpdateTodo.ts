@@ -8,17 +8,19 @@ export const useUpdateTodo = () => {
     mutationFn: async ({
       id,
       title,
-      completed,
+      description,
+      status,
     }: {
       id: string;
       title: string;
-      completed: boolean;
+      description: string;
+      status: string;
     }) => {
       if (!id) throw new Error("Todo ID is missing");
 
       const res = await axios.put(
         `http://localhost:3000/api/todos/updateTodo/${id}`,
-        { title, completed }
+        { title, description, status }
       );
 
       return res.data;

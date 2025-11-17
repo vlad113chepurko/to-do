@@ -1,8 +1,8 @@
 export interface Todo {
   id: string;
   title: string;
+  status: "todo" | "in-progress" | "done";
   description?: string;
-  completed: boolean;
   createdAt: string;
   updatedAt: string;
 }

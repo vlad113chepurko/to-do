@@ -11,7 +11,7 @@ import { useRemoveTodo } from "@/hooks/useRemoveTodo";
 import { useModalStore } from "@/store/useModalStore";
 
 export default function DropMenu({ id }: { id: string }) {
-  const { setIsUpdateModal } = useModalStore();
+  const { setIsUpdateModal, setSelectedTodoId } = useModalStore();
   const removeTodoMutation = useRemoveTodo();
   return (
     <DropdownMenu>
@@ -23,13 +23,14 @@ export default function DropMenu({ id }: { id: string }) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
+            setSelectedTodoId(id);
             setIsUpdateModal(true);
           }}
         >
           Update
         </DropdownMenuItem>
         <DropdownMenuItem
-        className="bg-red-400"
+          className="bg-red-400"
           onClick={() => {
             removeTodoMutation.mutate(id);
           }}

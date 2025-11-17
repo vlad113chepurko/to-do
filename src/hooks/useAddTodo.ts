@@ -7,11 +7,19 @@ export function useAddTodo() {
   const { setModal } = useModalStore();
 
   return useMutation({
-    mutationFn: async ({ title }: { title: string }) => {
+    mutationFn: async ({
+      title,
+      description,
+      status,
+    }: {
+      title: string;
+      description: string;
+      status: string;
+    }) => {
       const userId = localStorage.getItem("userId");
       const response = await axios.post(
         "http://localhost:3000/api/todos/createTodo",
-        { title, userId }
+        { title, description, status, userId }
       );
       return response.data;
     },

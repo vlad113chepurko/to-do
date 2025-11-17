@@ -10,10 +10,10 @@ export const createTodo = async (data) => {
   });
 };
 
-export const updateTodo = async ({ id, title, completed }) => {
+export const updateTodo = async ({ id, title, status, description }) => {
   return await prisma.todo.update({
     where: { id },
-    data: { title, completed },
+    data: { title, status, description },
   });
 };
 

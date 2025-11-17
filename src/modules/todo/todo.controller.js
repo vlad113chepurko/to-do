@@ -26,17 +26,18 @@ export const createTodo = async (req, res, next) => {
 export const updateTodo = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { title, completed } = req.body;
-
-    console.log("Id: ", id);
-    console.log("Title: ", title);
-    console.log("Completed: ", completed);
+    const { title, status, description } = req.body;
 
     if (!id) {
       return res.status(400).json({ message: "Todo ID is required" });
     }
 
-    const todo = await todoService.updateTodo({ id, title, completed });
+    const todo = await todoService.updateTodo({
+      id,
+      title,
+      status,
+      description,
+    });
     res.status(200).json(todo);
   } catch (e) {
     next(e);
@@ -65,3 +66,4 @@ export const getTodoById = async (req, res, next) => {
     next(e);
   }
 };
+

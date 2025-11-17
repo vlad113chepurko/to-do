@@ -6,17 +6,19 @@ import { useGetTodoById } from "@/hooks/useGetTodoById";
 import { useModalStore } from "@/store/useModalStore";
 import ReactDOM from "react-dom";
 
-export default function UpdateTodo({ id }: { id: string }) {
-  const { isUpdateModal, setIsUpdateModal } = useModalStore();
-  const { data, isLoading } = useGetTodoById(id);
-  const [title, setTitle] = useState("");
-  const [completed, setCompleted] = useState(false);
+export default function UpdateTodo() {
+  const { isUpdateModal, setIsUpdateModal, selectedTodoId } = useModalStore();
+  const { data, isLoading } = useGetTodoById(selectedTodoId);
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [status, setStatus] = useState<string>("todo");
   const updateTodo = useUpdateTodo();
 
   useEffect(() => {
     if (data) {
       setTitle(data.title);
-      setCompleted(data.completed);
+      setDescription(data.description);
+      setStatus(data.status);
     }
   }, [data]);
 
@@ -38,8 +40,13 @@ export default function UpdateTodo({ id }: { id: string }) {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (!id) return;
-              updateTodo.mutate({ id, title, completed });
+              if (!selectedTodoId) return;
+              updateTodo.mutate({
+                id: selectedTodoId,
+                title,
+                description,
+                status,
+              });
               setIsUpdateModal(false);
             }}
           >
@@ -56,16 +63,30 @@ export default function UpdateTodo({ id }: { id: string }) {
             </div>
 
             <div className="form-group">
+              <ui.Label className="mt-10 mb-2" id="description">
+                Description
+              </ui.Label>
+              <ui.Textarea
+                maxLength={20}
+                id="description"
+                placeholder="Enter todo description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
               <ui.Label className="mt-5 mb-2" id="completed">
                 Completed
               </ui.Label>
               <select
                 className="select"
-                value={completed ? "true" : "false"}
-                onChange={(e) => setCompleted(e.target.value === "true")}
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
               >
-                <option value="true">True</option>
-                <option value="false">False</option>
+                <option value="todo">Todo</option>
+                <option value="in-progress">In Progress</option>
+                <option value="done">Done</option>
               </select>
             </div>
 
