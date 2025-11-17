@@ -3,18 +3,11 @@ import axios from "axios";
 class UserService {
   private URL = "http://localhost:3000/api/users";
 
-  async registerUser(
-    email: string,
-    password: string,
-    createdAt: string,
-    updatedAt: string
-  ) {
+  async registerUser(email: string, password: string) {
     try {
       const res = await axios.post(`${this.URL}/register`, {
         email,
         password,
-        createdAt,
-        updatedAt,
       });
       console.log(res.data);
 
@@ -31,7 +24,8 @@ class UserService {
     try {
       const res = await axios.post(`${this.URL}/login`, { email, password });
       const token = res.data.token;
-      return token;
+      const userId = res.data.userId;
+      return { token, userId };
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || error.message);

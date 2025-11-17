@@ -1,0 +1,125 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.modal-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+
+  gap: 50%;
+
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+  }
+
+  h2 {
+    align-self: flex-start;
+  }
+}
+
+.modal-content {
+  background: #ffffff;
+  color: black;
+
+  width: 100%;
+  max-width: 450px;
+  min-height: auto;
+
+  padding: 28px;
+  border-radius: 14px;
+
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  animation: modalFade 0.18s ease;
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-content h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  input[type="checkbox"] {
+    align-self: flex-start;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.form-group label {
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
+.select {
+  width: 180px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #111;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.select:hover {
+  border-color: #888;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.select option {
+  padding: 8px;
+}

@@ -6,12 +6,9 @@ export const useRegister = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const createdAt = new Date().toISOString();
-  const updatedAt = new Date().toISOString();
-
   return useMutation({
     mutationFn: (data: { password: string; email: string }) =>
-      userService.registerUser(data.email, data.password, createdAt, updatedAt),
+      userService.registerUser(data.email, data.password),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });

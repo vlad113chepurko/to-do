@@ -7,7 +7,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default function DropMenu() {
+import { useRemoveTodo } from "@/hooks/useRemoveTodo";
+import { useModalStore } from "@/store/useModalStore";
+
+export default function DropMenu({ id }: { id: string }) {
+  const { setIsUpdateModal } = useModalStore();
+  const removeTodoMutation = useRemoveTodo();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -16,8 +21,21 @@ export default function DropMenu() {
       <DropdownMenuContent>
         <DropdownMenuLabel>Todo config</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Update</DropdownMenuItem>
-        <DropdownMenuItem>Delete</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setIsUpdateModal(true);
+          }}
+        >
+          Update
+        </DropdownMenuItem>
+        <DropdownMenuItem
+        className="bg-red-400"
+          onClick={() => {
+            removeTodoMutation.mutate(id);
+          }}
+        >
+          Delete
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

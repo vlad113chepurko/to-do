@@ -1,10 +1,11 @@
 import "./DashBoard.css";
 import type { Todo } from "@/types/Todo.type";
-import { Spinner } from "@/components/ui/spinner";
-import { Button } from "@/components/ui/button";
+import { ui } from "@/components/ui/";
 import { useGetAllTodos } from "@/hooks/useGetAllTodos";
 import { useModalStore } from "@/store/useModalStore";
 import { useQuery } from "@tanstack/react-query";
+import AddTodo from "@/components/modal/add-todo/AddTodo";
+import UpdateTodo from "@/components/modal/update-todo/UpdateTodo";
 import DropMenu from "@/components/drop-menu/DropMenu";
 
 export default function DashBoard() {
@@ -19,26 +20,31 @@ export default function DashBoard() {
 
   return (
     <div className="dashboard">
+      <AddTodo />
       <h1>Welcome to Your Dashboard</h1>
       {isLoading ? (
-        <Spinner className="size-8"/>
+        <ui.Spinner className="size-8" />
       ) : data.length > 0 ? (
         <ul>
           {data.map((todo: Todo) => (
             <li key={todo.id}>
-              <input type="checkbox" checked={todo.completed} readOnly />
+              <UpdateTodo id={todo.id} />
+              <input type="checkbox" checked={todo.completed} />
               <span>{todo.title}</span>
               <span>{todo.completed ? "Completed" : "Pending"}</span>
-              <DropMenu />
+              <DropMenu id={todo.id} />
             </li>
           ))}
+          <ui.Button onClick={() => setModal(true)} variant="secondary">
+            Add Todo
+          </ui.Button>
         </ul>
       ) : (
         <div className="flex flex-col items-center gap-5">
           <p>No todos available. Please add some tasks!</p>
-          <Button onClick={() => setModal(true)} variant="secondary">
+          <ui.Button onClick={() => setModal(true)} variant="secondary">
             Add Todo
-          </Button>
+          </ui.Button>
         </div>
       )}
     </div>

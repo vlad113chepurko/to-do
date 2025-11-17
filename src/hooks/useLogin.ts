@@ -10,9 +10,10 @@ export const useLogin = () => {
     mutationFn: (data: { password: string; email: string }) =>
       userService.loginUser(data.email, data.password),
 
-    onSuccess: (token) => {
+    onSuccess: ({ token, userId }) => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       localStorage.setItem("auth_token", token);
+      localStorage.setItem("userId", userId);
       navigate("/dashboard");
     },
   });
