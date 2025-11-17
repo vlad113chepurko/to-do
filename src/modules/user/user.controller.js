@@ -1,12 +1,14 @@
 import * as userService from "./user.service.js";
+import bcrypt from "bcrypt";
 
 export const loginUser = async (req, res, next) => {
   try {
     const user = await userService.getUserByEmail(req.body.email);
-    if (!user || user.password !== req.body.password) {
+    if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
-    res.json({ message: "Login successful", user });
+    const token = userService.generateToken(user);
+    res.status(200).json({ token });
   } catch (e) {
     next(e);
   }
@@ -18,7 +20,11 @@ export const registerUser = async (req, res, next) => {
     if (existingUser) {
       return res.status(409).json({ message: "Email already in use" });
     }
-    const newUser = await userService.createUser(req.body);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const newUser = await userService.createUser({
+      ...req.body,
+      password: hashedPassword,
+    });
     res
       .status(201)
       .json({ message: "User registered successfully", user: newUser });

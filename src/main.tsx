@@ -2,7 +2,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { components } from "./components/index.ts";
 import { pages } from "./pages/index.ts";
 import "./index.css";
 import App from "./App.tsx";
@@ -19,16 +18,20 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "/dashboard",
+    element: <pages.DashBoard />,
+  },
+  {
     path: "/form",
-    element: <components.Form />,
+    element: <pages.Form />,
     children: [
       {
         path: "login",
-        element: <components.Login />,
+        element: <pages.Login />,
       },
       {
         path: "signup",
-        element: <components.SignUp />,
+        element: <pages.SignUp />,
       },
     ],
   },

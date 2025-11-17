@@ -1,6 +1,6 @@
 import "./NotFound.css";
 import { useNavigate } from "react-router";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/button";
 export default function NotFound() {
   const navigate = useNavigate();
   return (
