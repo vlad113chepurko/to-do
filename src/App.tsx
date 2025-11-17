@@ -1,5 +1,5 @@
 import "./App.css";
-import { Button } from "./ui/button";
+import { Button } from "./components/ui/button";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 function App() {

@@ -1,7 +1,7 @@
-import { Input } from "@/ui/input";
-import { Button } from "@/ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Label } from "@radix-ui/react-label";
-import { Spinner } from "@/ui/spinner";
+import { Spinner } from "@/components/ui/spinner";
 import { useNavigate } from "react-router";
 import { useRegister } from "@/hooks/useRegister";
 import { useState } from "react";
